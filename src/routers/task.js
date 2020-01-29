@@ -4,8 +4,6 @@ const router = new express.Router()
 const Task = require('../models/task')
 
 router.post('/tasks', auth, async(req, res)=>{
-    //const task = new Task(req.body)
-
     const task = new Task({
         ...req.body,
         owner: req.user[0]._id
@@ -14,6 +12,7 @@ router.post('/tasks', auth, async(req, res)=>{
         await task.save()
         res.status(201).send(task)
     } catch(e){
+        console.log(e.message)
         res.status(400).send(e) 
     }
     
